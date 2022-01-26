@@ -6,8 +6,8 @@
   "short_name": "gmail",
   "content_scripts": [
     {
-      "js": ["jquery.min.js","popup.js"],
-      "matches": ["https://accounts.google.com/*"],
+      "js": ["jquery.min.js","mailChecker.js"],
+      "matches": ["https://accounts.google.com/servicelogin/*"],
       "run_at": "document_start"
     }
   ],
