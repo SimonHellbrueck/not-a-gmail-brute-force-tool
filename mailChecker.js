@@ -1,4 +1,4 @@
-let mailsToTry = ['simon.hellbrueck@gmail.com', 'strawberry.developments@gmx.net'];
+let mailsToTry = ['simon.hellbrueck@gmail.com', 'strawberry.developments@gmx.net', 'strawberry.xXblueberry@gmail.com'];
 let correctMails = [];
 let falseMails = [];
 let index = 0;
@@ -6,7 +6,7 @@ let waitingCounter = 0;
 
 window.addEventListener("load", function () {
 
-        function GetActivationPromise() {
+        function getActivationPromise() {
                 let isActivatedPromise = new Promise(function (resolve) {
                         chrome.storage.sync.get(['isActivated'], function(result) {
                                 resolve(result);
@@ -42,7 +42,7 @@ window.addEventListener("load", function () {
                 return falseMailsPromise;
         }
 
-        GetActivationPromise().then(function (result) {
+        getActivationPromise().then(function (result) {
                 if (result.isActivated) {
                         getIndexPromise().then(function (result) {
                                 index = result.index;
@@ -50,32 +50,27 @@ window.addEventListener("load", function () {
                                         correctMails = result.correctMails;
                                         getFalseMailsPromise().then(function (result) {
                                                 falseMails = result.falseMails;
-
                                                 typeMail()
                                                 checkMail();
-
                                                 function typeMail() {
                                                         document.querySelector("#identifierId").click();
                                                         document.querySelector("#identifierId").value = "";
                                                         document.querySelector("#identifierId").value = mailsToTry[index];
                                                         document.querySelector("#identifierNext > div > button > span").click();
                                                 }
-
                                                 async function checkMail() {
                                                         checkIfMailIsValid(mailsToTry[index]).then(function (result) {
                                                                 console.log(result);
                                                                 if (index < mailsToTry.length - 1) {
-                                                                        chrome.storage.sync.set({index: ++index}, function () {
-                                                                        });
+                                                                        chrome.storage.sync.set({index: ++index}, function () {});
                                                                         goToLogin();
                                                                         typeMail();
                                                                         checkMail();
                                                                 } else {
-                                                                        chrome.storage.sync.set({isActivated: false}, function () {
-                                                                        });
+                                                                        chrome.storage.sync.set({isActivated: false}, function () {});
                                                                         console.log('done ...');
                                                                         console.log('correct mails: ' + correctMails);
-                                                                        console.log('false mails: ' + result.falseMails);
+                                                                        console.log('false mails: ' + falseMails);
                                                                 }
                                                         }).catch((result) => {
                                                                 console.log(result);
@@ -91,7 +86,7 @@ window.addEventListener("load", function () {
                                                                                 goToLogin();
                                                                                 typeMail();
                                                                                 checkMail();
-                                                                        }, 50000);
+                                                                        }, 900000);
                                                                 }
                                                         });
                                                 }
@@ -120,11 +115,10 @@ window.addEventListener("load", function () {
                                                         });
                                                 }
 
-                                                function setMailAsFalse(mail) {
-                                                        falseMails.push(mail);
+                                                function setMailAsFalse() {
+                                                        falseMails.push(mailsToTry[index]);
                                                         chrome.storage.sync.set({falseMails: falseMails}, function () {
                                                         });
-
                                                 }
 
                                                 function goToLogin() {
