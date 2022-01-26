@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Gmail looker",
+  "version": "1.0.0",
+  "description": "gmail looker",
+  "short_name": "gmail",
+  "content_scripts": [
+    {
+      "js": ["jquery.min.js","popup.js"],
+      "matches": ["https://accounts.google.com/*"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },"permissions": [
+  "activeTab",  "storage"
+]
+}
