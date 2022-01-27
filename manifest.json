@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Gmail looker",
   "version": "1.0.0",
-  "description": "gmail looker",
-  "short_name": "gmail",
+  "description": "Checks provided Gmail addresses",
+  "short_name": "Gmail looker",
   "content_scripts": [
     {
       "js": ["jquery.min.js","mailChecker.js"],
