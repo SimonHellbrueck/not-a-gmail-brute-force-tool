@@ -1,6 +1,6 @@
 let allMails = [
         'isthismymail@gmail.com',
-        'oristhismymail@gmail.com@gmail.com',
+        'oristhismymail@gmail.com',
         'oreventhis@gmail.com',
 ];
 
